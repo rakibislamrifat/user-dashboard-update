@@ -130,6 +130,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
         margin-bottom: 15px;
         background-color: #666;
     }
+
+    button#editBtn {
+        width: 100%;
+        background: #3498db;
+        color: white;
+        padding: 10px;
+        border: none;
+        font-weight: bold;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    button#editBtn:hover {
+        background: #2980b9;
+    }
+
+    input[disabled] {
+        color: #fff !important;
+        opacity: 1 !important;
+        background-color: #4a4a4a;
+    }
     </style>
     <?php wp_enqueue_script('jquery'); ?>
 </head>
@@ -141,57 +164,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             <img id="profileImage" src="<?= esc_url($profile_img ?: '') ?>" class="profile-pic" alt="Profile Picture">
             <div class="form-group">
                 <label for="profile_image">Change Profile Picture</label>
-                <input type="file" id="fileInput" name="profile_image" accept="image/*">
+                <input type="file" id="fileInput" name="profile_image" accept="image/*" disabled>
             </div>
 
             <div class="form-group">
                 <label>First Name</label>
-                <input type="text" name="first_name" value="<?= esc_attr($first_name) ?>">
+                <input type="text" name="first_name" value="<?= esc_attr($first_name) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" name="last_name" value="<?= esc_attr($last_name) ?>">
+                <input type="text" name="last_name" value="<?= esc_attr($last_name) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Date of Birth</label>
-                <input type="date" name="dob" value="<?= esc_attr($dob) ?>">
+                <input type="date" name="dob" value="<?= esc_attr($dob) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" value="<?= esc_attr($email) ?>">
+                <input type="email" name="email" value="<?= esc_attr($email) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Phone</label>
-                <input type="text" name="phone" value="<?= esc_attr($phone) ?>">
+                <input type="text" name="phone" value="<?= esc_attr($phone) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Address</label>
-                <input type="text" name="address" value="<?= esc_attr($address) ?>">
+                <input type="text" name="address" value="<?= esc_attr($address) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Region</label>
-                <input type="text" name="region" value="<?= esc_attr($region) ?>">
+                <input type="text" name="region" value="<?= esc_attr($region) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>Street Address</label>
-                <input type="text" name="street_address" value="<?= esc_attr($street_address) ?>">
+                <input type="text" name="street_address" value="<?= esc_attr($street_address) ?>" disabled>
             </div>
 
             <div class="form-group">
                 <label>ZIP Code</label>
-                <input type="text" name="zip_code" value="<?= esc_attr($zip_code) ?>">
+                <input type="text" name="zip_code" value="<?= esc_attr($zip_code) ?>" disabled>
             </div>
 
             <input type="submit" name="update_profile" value="Save Profile">
+            <button type="button" id="editBtn">
+                Edit Profile
+            </button>
+
         </form>
     </div>
+
+
+    <!-- edit profile -->
+    <script>
+    document.getElementById('editBtn').addEventListener('click', function() {
+        const inputs = document.querySelectorAll('form input');
+        inputs.forEach(input => input.removeAttribute('disabled'));
+        this.style.display = 'none'; // hide edit button
+    });
+    </script>
+
+
+
 
     <script>
     document.getElementById('fileInput').addEventListener('change', function(e) {
